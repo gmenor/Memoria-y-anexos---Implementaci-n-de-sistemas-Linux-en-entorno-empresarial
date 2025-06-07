@@ -1,0 +1,55 @@
+/*  Importar fuente Ubuntu desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+
+/*  Estilos generales */
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px; /* Un poco más grande que el tamaño por defecto */
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+}
+
+/*  Estilos para títulos */
+h1, h2, h3 {
+    font-weight: bold;
+    font-size: 24px; /* Títulos más grandes */
+    margin-bottom: 20px; /* Espaciado extra entre títulos */
+}
+
+/*  Estilos para tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/*  Botones */
+button {
+    font-size: 18px;
+    padding: 10px 15px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #0078D7;
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #005a9e;
+}
+
+/*  Formularios */
+input[type="text"], input[type="date"], input[type="time"], select {
+    font-size: 16px;
+    padding: 8px;
+    margin: 10px;
+    width: 50%;
+}
