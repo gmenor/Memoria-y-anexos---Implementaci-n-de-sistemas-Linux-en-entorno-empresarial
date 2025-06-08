@@ -1,0 +1,34 @@
+# Políticas por defecto (seguridad estricta)
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# --- REGLAS BÁSICAS ---
+# Permitir localhost y conexiones establecidas
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Permitir ping (ICMP)
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+# --- 🔐 SSH RESTRINGIDO (solo desde IP específica, ej. 172.30.0.4) ---
+iptables -A INPUT -i eth0 -p tcp -s 172.30.0.4 --dport 22 -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport 22 -j DROP  # Bloqueo explícito
+
+# --- 🌍 SERVICIOS WEB PÚBLICOS ---
+# HTTP (80) y HTTPS (443) desde cualquier origen
+iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport 443 -j ACCEPT
+
+# --- 🛡️ SERVICIOS INTERNOS ---
+# MariaDB (3306 - solo localhost)
+iptables -A INPUT -i lo -p tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport 3306 -j DROP  # Bloqueo externo
+
+# DNS (systemd-resolved - solo localhost)
+iptables -A INPUT -i lo -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -i lo -p tcp --dport 53 -j ACCEPT
+
+# --- ⚠️ BLOQUEO Y LOGGING ---
+iptables -A INPUT -j LOG --log-prefix "IPTABLES-DROPPED: "  # Log de tráfico bloqueado
+iptables -A INPUT -j DROP
