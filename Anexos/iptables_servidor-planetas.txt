@@ -41,7 +41,7 @@ iptables -A INPUT -i enp3s0 -p tcp --dport 3128 -j ACCEPT
 
 # ===== 🌍 SERVICIOS PÚBLICOS =====
 # XMPP
-iptables -A INPUT -i eno1 -p tcp --dport 5223 -j ACCEPT
+iptables -A INPUT -i enp3s0 -p tcp --dport 5223 -j ACCEPT
 
 # Erlang (interno)
 iptables -A INPUT -i enp3s0 -p tcp --dport 4369 -j ACCEPT
